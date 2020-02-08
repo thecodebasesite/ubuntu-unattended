@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # file names & paths
-tmp="$HOME"  # destination folder to store the final iso file
-hostname="ubuntu"
+tmp="$PWD"  # destination folder to store the final iso file
+hostname="homeserver"
 currentuser="$( whoami)"
 
 # define spinner function for slow tasks
@@ -137,7 +137,7 @@ fi
 
 # ask the user questions about his/her preferences
 read -ep " please enter your preferred timezone: " -i "${timezone}" timezone
-read -ep " please enter your preferred username: " -i "netson" username
+read -ep " please enter your preferred username: " -i "elmeri" username
 read -sp " please enter your preferred password: " password
 printf "\n"
 read -sp " confirm your preferred password: " password2
@@ -166,11 +166,10 @@ if [[ ! -f $tmp/$download_file ]]; then
     exit 1
 fi
 
-# download netson seed file
 seed_file="netson.seed"
 if [[ ! -f $tmp/$seed_file ]]; then
-    echo -n " downloading $seed_file: "
-    download "https://raw.githubusercontent.com/netson/ubuntu-unattended/master/$seed_file"
+    echo -n "Missing $seed_file.. Exiting.."
+    exit 1
 fi
 
 # install required packages
